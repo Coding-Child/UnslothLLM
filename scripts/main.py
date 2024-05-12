@@ -141,7 +141,7 @@ def main(args):
                                       logging_dir='./logs',
                                       run_name=f'{model_name.split("/")[-1]}_{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}',
                                       report_to='wandb',
-                                      num_data_loader_workers=4,
+                                      dataloader_num_workers=8,
                                       dataloader_pin_memory=True,
                                       )
 
