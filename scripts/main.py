@@ -140,7 +140,9 @@ def main(args):
                                       output_dir=args.save_path,
                                       logging_dir='./logs',
                                       run_name=f'{model_name.split("/")[-1]}_{datetime.now().strftime("%Y-%m-%d-%H-%M-%S")}',
-                                      report_to='wandb', 
+                                      report_to='wandb',
+                                      num_data_loader_workers=4,
+                                      dataloader_pin_memory=True,
                                       )
 
     trainer = SFTTrainer(model=model,
@@ -153,7 +155,8 @@ def main(args):
                          dataset_text_field='prompt',
                          packing=False,
                          data_collator=data_collator,
-                         compute_metrics=lambda x: compute_metrics(x, tokenizer)
+                         compute_metrics=lambda x: compute_metrics(x, tokenizer),
+                         callbacks=[early_stopping]
                          )
 
     tester = SFTTrainer(model=model,
