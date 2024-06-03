@@ -30,6 +30,7 @@ def load_model(model_path, max_len: int = 4096, r: int = 16, alpha: int = 32, dr
                                              use_rslora=False,
                                              loftq_config=None,
                                              )
+    model.gradient_checkpointing_enable()
 
     return model, tokenizer
 
